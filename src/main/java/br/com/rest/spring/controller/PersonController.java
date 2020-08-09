@@ -1,6 +1,6 @@
 package br.com.rest.spring.controller;
 
-import br.com.rest.spring.domain.entities.Person;
+import br.com.rest.spring.data.vo.PersonVO;
 import br.com.rest.spring.domain.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,34 +21,34 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
 
         return personService.findAll();
     }
 
 
     @GetMapping("/{id}")
-    public Person findById(@PathVariable("id") String id) {
+    public PersonVO findById(@PathVariable("id") Long id) {
 
         return personService.findById(id);
     }
 
 
     @PostMapping
-    public Person create(@RequestBody Person person) {
+    public PersonVO create(@RequestBody PersonVO personVO) {
 
-        return personService.create(person);
+        return personService.create(personVO);
     }
 
 
     @PutMapping
-    public Person update(@RequestBody Person person) {
+    public PersonVO update(@RequestBody PersonVO personVO) {
 
-        return personService.update(person);
+        return personService.update(personVO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") String id) {
+    public ResponseEntity delete(@PathVariable("id") Long id) {
         personService.delete(id);
 
         return ResponseEntity.ok().build();

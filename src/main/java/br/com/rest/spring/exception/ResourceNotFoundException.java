@@ -3,12 +3,11 @@ package br.com.rest.spring.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UnsuportedOperationException extends RuntimeException {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
 
-    public UnsuportedOperationException (String exception) {
+
+    public ResourceNotFoundException(String exception) {
         super(exception);
     }
-
-
 }
