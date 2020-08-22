@@ -45,7 +45,7 @@ public class PersonService {
 
     public PersonVO update(PersonVO personVO) {
 
-        Person foundedPerson = personRepository.findById(personVO.getId());
+        Person foundedPerson = personRepository.findById(personVO.getKey());
 
         if(Objects.isNull(personVO)) {
             throw new ResourceNotFoundException("No records found for this ID");
