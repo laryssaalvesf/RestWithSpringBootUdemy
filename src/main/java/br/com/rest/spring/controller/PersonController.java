@@ -37,6 +37,7 @@ public class PersonController {
 
 
     @GetMapping("/{id}")
+    //@CrossOrigin("http://localhost:8080") permite so esse dominio acessar... tbm pode ser colocado em cima do PersonController
     public PersonVO findById(@PathVariable("id") Long id) {
         PersonVO personVO = personService.findById(id);
         personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
