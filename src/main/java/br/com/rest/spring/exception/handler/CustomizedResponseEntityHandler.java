@@ -1,7 +1,8 @@
 package br.com.rest.spring.exception.handler;
 
 import br.com.rest.spring.exception.ExceptionResponse;
-import br.com.rest.spring.exception.UnsuportedOperationException;
+import br.com.rest.spring.exception.InvalidJWTAuthenticationException;
+import br.com.rest.spring.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,11 +26,21 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
     }
 
 
-    @ExceptionHandler(UnsuportedOperationException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception exception, WebRequest webRequest) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), exception.getMessage(), webRequest.getDescription(false));
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
+
+    @ExceptionHandler(InvalidJWTAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> invalidJWTAuthenticationException(Exception exception, WebRequest webRequest) {
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), exception.getMessage(), webRequest.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
 }

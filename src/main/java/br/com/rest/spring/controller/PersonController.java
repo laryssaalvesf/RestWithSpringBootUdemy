@@ -14,7 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RestController
-@RequestMapping(value = "/person")
+@RequestMapping(value = "/api/person")
 public class PersonController {
 
 
