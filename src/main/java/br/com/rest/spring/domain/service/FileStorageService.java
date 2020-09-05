@@ -2,8 +2,11 @@ package br.com.rest.spring.domain.service;
 
 
 import br.com.rest.spring.config.FileStorageConfig;
+import br.com.rest.spring.exception.FileNotFoundException;
 import br.com.rest.spring.exception.FileStorageException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +39,7 @@ public class FileStorageService {
 
         try {
 
-            if(fileName.contains("..")) {
+            if (fileName.contains("..")) {
                 throw new FileStorageException("File name contains invalid path sequence " + fileName);
             }
 
@@ -50,5 +53,24 @@ public class FileStorageService {
 
     }
 
+    public Resource loadFileAsResource(String fileName) {
+
+        try {
+
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if(resource.exists()) {
+                return resource;
+            }
+
+            throw new FileNotFoundException("File not found " + fileName);
+
+        } catch (Exception e) {
+            throw new FileNotFoundException("File not found " + fileName, e);
+        }
+
+
+    }
 
 }
